@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Mosques and Prayer Times</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            color: #2c5858;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        label {
+            font-size: 16px;
+            color: #00a3a6;
+        }
+        select, button {
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #00a3a6;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #008c8c;
+        }
+        h2 {
+            color: #2c5858;
+            margin-top: 0;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: #fff;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <h1>Find Mosques and Prayer Times by Region</h1>
+    <form method="post">
+        <label for="city">Select City:</label>
+        <select id="city" name="city">
+            {% for city in cities %}
+                <option value="{{ city.id }}">{{ city.frenshCityName }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if selected_city %}
+        <h2>Prayer Times for {{ selected_city.frenshCityName }}</h2>
+        <ul>
+            {% for timing in prayer_times %}
+                <li>{{ timing.date.readable }}: Fajr - {{ timing.prayers.fajr }}, Dhuhr - {{ timing.prayers.dhuhr }}, Asr - {{ timing.prayers.asr }}, Maghrib - {{ timing.prayers.maghrib }}, Isha - {{ timing.prayers.ishaa }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
