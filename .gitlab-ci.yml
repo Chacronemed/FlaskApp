@@ -1,0 +1,21 @@
+stages:
+  - test
+  - deploy
+
+test:
+  stage: test
+  image: python:3.8
+  before_script:
+    - pip install -r requirements.txt
+    - pip install pytest
+  script:
+    - pytest
+
+deploy:
+  stage: deploy
+  image: python:3.8
+  only:
+    - main
+  script:
+    - echo "Deploying the application..."
+    # Add your deployment steps here
