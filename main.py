@@ -40,12 +40,13 @@ def get_prayer_times(city_id):
         return prayer_times
     return []
 
-# Fetch available cities from the API
 def get_available_cities():
     url = "https://habous-prayer-times-api.onrender.com/api/v1/available-cities"
     response = requests.get(url)
     if response.status_code == 200:
-        return response.json().get('cities', [])
+        cities = response.json().get('cities', [])
+        cities.sort(key=lambda x: x['frenshCityName'])  # Sort cities alphabetically
+        return cities
     return []
 
 @app.route('/', methods=['GET', 'POST'])
@@ -64,4 +65,3 @@ def index():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)
-
