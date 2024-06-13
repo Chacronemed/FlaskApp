@@ -45,6 +45,10 @@ def get_available_cities():
     response = requests.get(url)
     if response.status_code == 200:
         cities = response.json().get('cities', [])
+        # Ensure 'frenshCityName' exists in all city entries
+        for city in cities:
+            if 'frenshCityName' not in city:
+                city['frenshCityName'] = city.get('name', '')  # Default to another key if available
         cities.sort(key=lambda x: x['frenshCityName'])  # Sort cities alphabetically
         return cities
     return []
