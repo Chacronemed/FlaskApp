@@ -17,5 +17,8 @@ deploy:
   only:
     - main
   script:
-    - echo "Deploying the application..."
-    # Add your deployment steps here
+    - echo "Deploying to Render"
+    # No need for Heroku commands here
+  environment:
+    name: production
+    url: https://flasktest1.onrender.com
